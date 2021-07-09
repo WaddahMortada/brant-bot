@@ -1,0 +1,27 @@
+{
+  "name": "brant-bot",
+  "version": "0.0.1",
+  "description": "BrantBot is a Slack Bot app to impersonate my colleague Brant",
+  "main": "app.js",
+  "author": "Waddah.Mortada",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WaddahMortada/brant-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WaddahMortada/brant-bot/issues"
+  },
+  "homepage": "https://github.com/WaddahMortada/brant-bot#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.10"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.4.1"
+  }
+}
