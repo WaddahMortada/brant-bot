@@ -3,6 +3,7 @@ import DotEnv from 'dotenv'
 import { App } from '@slack/bolt'
 import miniatureEpiphanies from '../../miniatureEpiphanies.json'
 import { fetchMiniatureEpiphanies } from './network'
+import { Scheduler } from './scheduler'
 import filterKey from './nsfw-words.json'
 
 DotEnv.config()
@@ -60,6 +61,8 @@ const moreMoreMiniatureEpiphanies = () => {
 }
 
 moreMoreMiniatureEpiphanies()
+
+// Scheduler.onceAWeek(enrichDB)
 
 app.command('/enlighten', async ({ command, ack, say }) => {
   console.log('DB', miniatureEpiphanies)
