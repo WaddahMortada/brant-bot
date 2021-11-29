@@ -1,5 +1,5 @@
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
-export const fetchMiniatureEpiphanies = (period = 'week', limit = 20) => {
+export const fetchMiniatureEpiphanies = (period = 'month', limit = 100) => {
   return new Promise((resolve, reject) => {
     const endpoint = `https://www.reddit.com/r/Showerthoughts/top.json?t=${period}&obey_over18=true&over_18=false&limit=${limit}`
     console.log(`Fetching data from ${endpoint}`)
