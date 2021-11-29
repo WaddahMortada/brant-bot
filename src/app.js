@@ -3,6 +3,7 @@ import DotEnv from 'dotenv'
 import { App } from '@slack/bolt'
 import miniatureEpiphanies from '../../miniatureEpiphanies.json'
 import { fetchMiniatureEpiphanies } from './network'
+import filterKey from './nsfw-words.json'
 
 DotEnv.config()
 
@@ -32,6 +33,7 @@ const updateDB = () => {
 
 const sanitiseMiniatureEpiphanies = miniatureEpiphaniesData => {
   const newMiniatureEpiphanies = miniatureEpiphaniesData.data.children
+    .filter(item => !filterKey.words.some(word => item.data.title.toLowerCase().includes(word)))
     .filter(item => !miniatureEpiphanies.archive.includes(item.data.title))
     .filter(item => !miniatureEpiphanies.new.includes(item.data.title))
     .map(item => item.data.title)
