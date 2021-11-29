@@ -1,6 +1,6 @@
-const DotEnv = require('dotenv')
-const { App } = require('@slack/bolt')
-const { fetchMiniatureEpiphanies } = require('./network')
+import DotEnv from 'dotenv'
+import { App } from '@slack/bolt'
+import { fetchMiniatureEpiphanies } from './network'
 
 DotEnv.config()
 
