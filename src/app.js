@@ -3,7 +3,7 @@ import DotEnv from 'dotenv'
 import { App } from '@slack/bolt'
 import miniatureEpiphanies from '../../miniatureEpiphanies.json'
 import { fetchMiniatureEpiphanies } from './network'
-import { Scheduler } from './scheduler'
+import Scheduler from './scheduler'
 import filterKey from './nsfw-words.json'
 
 DotEnv.config()
