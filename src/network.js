@@ -15,7 +15,7 @@ export const fetchMiniatureEpiphanies = (period = 'month', limit = 100) => {
         if (xhr.status === 200) {
           resolve(xhr.responseText)
         } else {
-          reject(xhr.status)
+          reject(xhr)
         }
       }
     }

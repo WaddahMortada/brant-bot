@@ -51,8 +51,8 @@ const moreMoreMiniatureEpiphanies = () => {
         const newMiniatureEpiphanies = sanitiseMiniatureEpiphanies(miniatureEpiphaniesData)
         if (newMiniatureEpiphanies.length)
           addNewMiniatureEpiphanies(newMiniatureEpiphanies)
-      }).catch((err) => {
-        console.log(`error loading data: ${err}`)
+      }).catch(err => {
+        console.log(`Error loading data: {responseText: ${err.responseText}, status: ${err.status}}`)
       })
   } catch (error) {
     console.log('err')
