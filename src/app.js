@@ -1,6 +1,8 @@
 import fs from 'fs'
 import DotEnv from 'dotenv'
 import { App } from '@slack/bolt'
+// import FirebaseDB from 'firebase-admin'
+// import serviceAccount from 'serviceAccountKey.json'
 import miniatureEpiphanies from '../../miniatureEpiphanies.json'
 import { fetchMiniatureEpiphanies } from './network'
 import { Scheduler } from './scheduler'
@@ -14,6 +16,10 @@ const app = new App({
   socketMode: true, // enable to use socket mode
   appToken: process.env.APP_TOKEN
 })
+
+// FirebaseDB.initializeApp({
+//   credential: FirebaseDB.credential.applicationDefault()
+// })
 
 const addNewMiniatureEpiphanies = newMiniatureEpiphanies => {
   miniatureEpiphanies.new = miniatureEpiphanies.new.concat(newMiniatureEpiphanies)
