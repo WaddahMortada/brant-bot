@@ -49,8 +49,9 @@ const moreMoreMiniatureEpiphanies = () => {
         console.log('Loaded miniatureEpiphaniesData')
         const miniatureEpiphaniesData = JSON.parse(miniatureEpiphaniesDataString)
         const newMiniatureEpiphanies = sanitiseMiniatureEpiphanies(miniatureEpiphaniesData)
-        if (newMiniatureEpiphanies.length)
+        if (newMiniatureEpiphanies.length) {
           addNewMiniatureEpiphanies(newMiniatureEpiphanies)
+        }
       }).catch(err => {
         console.log(`Error loading data: {responseText: ${err.responseText}, status: ${err.status}}`)
       })
@@ -60,17 +61,22 @@ const moreMoreMiniatureEpiphanies = () => {
   }
 }
 
-moreMoreMiniatureEpiphanies()
+const enlighten = say => {
+  console.log('enlighten')
+  // TODO: call moreMoreMiniatureEpiphanies if there's no items in new miniatureEpiphanies
+  say(miniatureEpiphanies.new[0])
+  archiveAMiniatureEpiphanies()
+}
 
-// Scheduler.onceAWeek(enrichDB)
+// moreMoreMiniatureEpiphanies()
+
+// Scheduler.onceAWeek(moreMoreMiniatureEpiphanies)
 
 app.command('/enlighten', async ({ command, ack, say }) => {
   console.log('DB', miniatureEpiphanies)
   try {
     await ack()
-    // TODO: call moreMoreMiniatureEpiphanies if there's no items in new miniatureEpiphanies
-    say(miniatureEpiphanies.new[0])
-    archiveAMiniatureEpiphanies()
+    enlighten(say)
   } catch (error) {
     console.log('err')
     console.error(error)
@@ -82,16 +88,26 @@ app.command('/schedule', async ({ command, ack, say, respond, body }) => {
     await ack()
     console.log(command)
     console.log(command.text)
-    // respond({
-    //   "response_type": "ephemeral",
-    //   "text": "Sorry, slash commando, that didn't work. Please try again."
-    // })
+
+    const time = command.text
+    const timeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/ // HH:MM 24-hour format, optional leading 0
+    let text, attachment
+
+    if (time && timeFormat.test(time)) {
+      Scheduler.weekday(time, enlighten)
+      text = `An enlighten message have been scheduled everyday during weekday at ${time}\nTo cancel this scheduled message, use the /cancel slash command with the same time value you used for this`
+      // attachment = 'To cancel this scheduled message, use the /cancel slash command with the same time value you used for this'
+    } else {
+      text = 'How to use /schedule'
+      attachments = 'To schedule a weekday recurring enlighten message, pass a Time value [hh:mm] in 24 hour formate. Example: 08:30 or 21:55'
+    }
+
     respond({
       "response_type": "ephemeral",
-      "text": "How to use /schedule",
+      "text": text,
       "attachments": [
         {
-          "text": "To schedule a recurring enlighten message, pass an Interval (daily, weekly, monthly or yearly) and Time (hh:mm). Example: daily 08:30"
+          "text": attachment
         }
       ]
     })
